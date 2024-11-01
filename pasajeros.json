@@ -1,0 +1,16 @@
+[
+  {
+    "ID": 101,
+    "Nombre": "Juana",
+    "Apellido": "Mendez",
+    "Edad": 49,
+    "Destino": "Florida"
+  },
+  {
+    "ID": 100,
+    "Nombre": "Juan",
+    "Apellido": "Mendez",
+    "Edad": 46,
+    "Destino": "Florida"
+  }
+]
