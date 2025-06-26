@@ -31,7 +31,7 @@ func main() {
 	menu[2] = "Cancelacion de Vuelo"
 	menu[3] = "Disponibilidad de Asientos"
 
-	for continuar {
+	for {
 		// Mostrar el menu
 		fmt.Println("Seleccione una opcion:")
 		for i, opcion := range menu {
@@ -45,11 +45,9 @@ func main() {
 			log.Fatal(err)
 		}
 		if seleccion < 1 || seleccion > len(menu) {
-			fmt.Println("Seleccion Invalida, intente nuevamente")
-			fmt.Println("")
-			continuar = true
+			fmt.Println("Seleccion Invalida, intente nuevamente\n")
 		} else {
-			continuar = false
+			break
 		}
 	}
 
@@ -89,11 +87,11 @@ func registrarPasajero(archivo string) error {
 
 	nuevoPasajero := Pasajero{}
 
-	//Primero preguntamos el ID
+	// Primero preguntamos el ID
 	fmt.Println("Inserte el ID de pasajero: ")
 	fmt.Scanf("%d", &nuevoPasajero.ID)
 
-	//Nombre, Apellido y Destino que sean multiple.
+	// Nombre, Apellido y Destino que sean multiple.
 	fmt.Println("Inserte el nombre del pasajero (enter para finalizar): ")
 	fmt.Scanln(&nuevoPasajero.Nombre)
 	fmt.Println("Inserte el apellido del pasajero (enter para finalizar): ")
