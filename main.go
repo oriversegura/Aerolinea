@@ -1,13 +1,19 @@
 package main
 
 import (
-	aerolinea "aerolinea/cmd"
+	"aerolinea/aerolinea"
+	"bufio"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
+	"strings"
 )
 
-var seleccion int
-var archivo = "pasajeros.json"
+var (
+	seleccion int
+	archivo   = "pasajeros.json"
+)
 
 func main() {
 	// menuPrincipal : Esto imprime el menu principal y acepta un valor entero
@@ -17,6 +23,8 @@ func main() {
 	menu[1] = "Compra de Vuelo"
 	menu[2] = "Cancelacion de Vuelo"
 	menu[3] = "Disponibilidad de Asientos"
+
+	reader := bufio.NewReader(os.Stdin)
 
 	for {
 
@@ -28,17 +36,23 @@ func main() {
 
 		// Preguntar la opcion al usuario
 		fmt.Println("Ingrese la opcion deseada: ")
-		_, err := fmt.Scanln(&seleccion)
+		input, err := reader.ReadString('\n')
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("Error al leer la entrada: %v", err)
 		}
+
+		seleccion, err = strconv.Atoi(strings.TrimSpace(input))
+		if err != nil {
+			fmt.Println("Entrada invalida, por favor ingrese un numero.")
+			continue
+		}
+
 		if seleccion < 1 || seleccion > len(menu) {
 			fmt.Println("Seleccion invalida, intente nuevamente \n")
 		} else {
 			break
 		}
 	}
-	var seleccion int
 
 	switch seleccion {
 	case 1:

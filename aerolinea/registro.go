@@ -1,10 +1,13 @@
 package aerolinea
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"log"
 	"os"
+	"strconv"
+	"strings"
 )
 
 type Pasajero struct {
@@ -38,20 +41,35 @@ func RegistrarPasajero(archivo string) error {
 	json.Unmarshal([]byte(file), &pasajeros)
 
 	nuevoPasajero := Pasajero{}
+	reader := bufio.NewReader(os.Stdin)
 
-	// Primero preguntamos el ID
 	fmt.Println("Inserte el ID de pasajero: ")
-	fmt.Scanf("%d", &nuevoPasajero.ID)
+	idStr, _ := reader.ReadString('\n')
+	id, err := strconv.Atoi(strings.TrimSpace(idStr))
+	if err != nil {
+		return fmt.Errorf("ID invalido: %w", err)
+	}
+	nuevoPasajero.ID = id
 
-	// Nombre, Apellido y Destino que sean multiple.
-	fmt.Println("Inserte el nombre del pasajero (enter para finalizar): ")
-	fmt.Scanln(&nuevoPasajero.Nombre)
-	fmt.Println("Inserte el apellido del pasajero (enter para finalizar): ")
-	fmt.Scanln(&nuevoPasajero.Apellido)
+	fmt.Println("Inserte el nombre del pasajero: ")
+	nombre, _ := reader.ReadString('\n')
+	nuevoPasajero.Nombre = strings.TrimSpace(nombre)
+
+	fmt.Println("Inserte el apellido del pasajero: ")
+	apellido, _ := reader.ReadString('\n')
+	nuevoPasajero.Apellido = strings.TrimSpace(apellido)
+
 	fmt.Println("Inserte la edad del pasajero: ")
-	fmt.Scanf("%d", &nuevoPasajero.Edad)
-	fmt.Println("Inserte el nombre del pasajero (enter para finalizar): ")
-	fmt.Scan(&nuevoPasajero.Destino)
+	edadStr, _ := reader.ReadString('\n')
+	edad, err := strconv.Atoi(strings.TrimSpace(edadStr))
+	if err != nil {
+		return fmt.Errorf("edad invalida: %w", err)
+	}
+	nuevoPasajero.Edad = edad
+
+	fmt.Println("Inserte el destino del pasajero: ")
+	destino, _ := reader.ReadString('\n')
+	nuevoPasajero.Destino = strings.TrimSpace(destino)
 
 	pasajeros = append(pasajeros, nuevoPasajero)
 
